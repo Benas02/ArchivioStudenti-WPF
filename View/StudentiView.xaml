@@ -1,0 +1,51 @@
+﻿<Page x:Class="WPFDemo.View.StudentiView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFDemo.View"
+        xmlns:convertitori="clr-namespace:WPFDemo.Converter"
+        mc:Ignorable="d"
+        Title="Gestione Studenti" Height="550" Width="900">
+
+    <Page.Resources>
+        <convertitori:BooleanToSiNoConverter x:Key="BooleanToSiNoConverter"/>
+    </Page.Resources>
+    
+    <Grid Margin="20, 0, 20, 20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.ColumnSpan="2" FontSize="20" FontWeight="Bold">Gestione Studenti</Label>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0, 0, 10, 0">
+            <TextBox Text="{Binding Filtro, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FiltraTextBox}"></TextBox>
+            <Button Click="Filtra_Click" Style="{StaticResource FiltraButton}">Filtra</Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource EliminaButton}" Click="Elimina_Click" IsEnabled="{Binding canDelete}">Elimina</Button>
+            <Button Style="{StaticResource NuovoButton}" Click="Nuovo_Click">Nuovo</Button>
+        </StackPanel>
+
+        <DataGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Studenti}" Style="{StaticResource StudentiDataGrid}" SelectedItem="{Binding StudenteSelezionato}" MouseDoubleClick="DataGrid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="IdStudente" Binding="{Binding IdStudente}" Width="1*"/>
+                <DataGridTextColumn Header="Cognome" Binding="{Binding Cognome}" Width="2*"/>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" Width="2*"/>
+                <DataGridTextColumn Header="Data Nascita" Binding="{Binding DataNascita, StringFormat='dd/MM/yyyy'}" Width="2*"/>
+                <DataGridTextColumn Header="Corso" Binding="{Binding Corsi.Nome}" Width="2*"/>
+                <DataGridTextColumn Header="In Regola" Binding="{Binding InRegolaConPagamenti, Converter={StaticResource BooleanToSiNoConverter}}" Width="1*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -1,0 +1,44 @@
+﻿<Window x:Class="WPFDemo.View.StudenteView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFDemo.View"
+        mc:Ignorable="d"
+        Title="StudenteView" WindowStartupLocation="CenterScreen" Height="300" Width="700">
+    <Grid Margin="20, 0, 20, 20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.ColumnSpan="3" FontSize="20" FontWeight="Bold" Content="{Binding Title}"></Label>
+
+        <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelNuovoStudente}" > Cognome </Label>
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Studente.Cognome, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NewTextBox}" HorizontalAlignment="Left"></TextBox>
+
+        <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource LabelNuovoStudente}" > Nome </Label>
+        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Studente.Nome, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NewTextBox}" HorizontalAlignment="Left"></TextBox>
+
+        <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelNuovoStudente}" > Data Nascita</Label>
+        <DatePicker Grid.Row="5" Grid.Column="0" SelectedDate="{Binding Studente.DataNascita}"></DatePicker>
+
+        <Label Grid.Row="4" Grid.Column="2" Style="{StaticResource LabelNuovoStudente}" > Corso </Label>
+        <ComboBox Grid.Row="5" Grid.Column="2" ItemsSource="{Binding Corsi}" DisplayMemberPath="Nome" SelectedValuePath="IdCorso" SelectedValue="{Binding Studente.idCorso}"></ComboBox>
+
+        <Button Grid.Row="7" Grid.Column="0" Style="{StaticResource EliminaNuovoButton}" Click="Annulla_Click"> Annulla </Button>
+        <Button Grid.Row="7" Grid.Column="3" Style="{StaticResource AggiungiNuovoButton}" Click="Conferma_Click" Content="{Binding ButtonGo}"></Button>
+    </Grid>
+</Window>
